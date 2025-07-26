@@ -9,7 +9,11 @@ ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 
 #players stats
 PLAYER_RADIUS = 20
+PLAYER_TURN_SPEED = 300
+PLAYER_SPEED = 200
 
 #colors
 black = (0,0,0)
 white = (255, 255, 255)
+neon_blue = (4,217,255)
+neon_purple = (138,0,255)
