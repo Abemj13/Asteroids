@@ -4,6 +4,7 @@ from player import *
 from circleshape import *
 from asteroid import *
 from asteroidfield import *
+import sys
 
 def main():
 
@@ -22,7 +23,7 @@ def main():
     AsteroidField.containers = (updatable)
 
     #members?
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS, PLAYER_HP)
     asteroidfield = AsteroidField()
 
 
@@ -38,6 +39,14 @@ def main():
             
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player) == True:
+                player.health -= 1
+                print(f"Ouch! Whatch those asteroids Joe, you have {player.health} remaining lives!")
+                
+            if player.health <= 0:
+                sys.exit()
 
         screen.fill(neon_purple)
 

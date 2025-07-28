@@ -3,10 +3,11 @@ from constants import *
 import pygame
 
 class Player(CircleShape):
-    def __init__(self, x, y, radius):
+    def __init__(self, x, y, radius, health):
         super().__init__(x, y, PLAYER_RADIUS)
     
         self.rotation = 0
+        self.health = health
     
     def update(self, dt):
         keys = pygame.key.get_pressed()
