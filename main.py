@@ -40,20 +40,30 @@ def main():
                 return
             
         keys = pygame.key.get_pressed()  
+        player.is_colliding = False
 
         if keys[pygame.K_SPACE]:
-            shot = player.shoot()
-            shots.add(shot)
+            if player.bullet_timer <= 0:
+                player.bullet_timer = PLAYER_SHOOT_COOLDOWN
+                shot = player.shoot()
+                shots.add(shot)
+            
 
         updatable.update(dt)
 
         for asteroid in asteroids:
             if asteroid.collides_with(player) == True:
-                player.health -= 1
-                print(f"Ouch! Whatch those asteroids Joe, you have {player.health} remaining lives!")
-                
-            if player.health <= 0:
+                if player.invincability_timer <= 0:
+                    player.invincability_timer = PLAYER_INV_FRAMES
+                    player.health -= 1
+                    player.is_colliding = True
+                    print(f"Ouch! Whatch those asteroids Joe, you have {player.health} remaining lives!")
+
+            elif player.health <= 0:
                 sys.exit()
+
+        
+                
 
         screen.fill(neon_purple)
 
