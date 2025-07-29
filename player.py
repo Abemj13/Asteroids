@@ -9,9 +9,15 @@ class Player(CircleShape):
     
         self.rotation = 0
         self.health = health
+        self.bullet_timer = 0
+        self.invincability_timer = 0
+        self.is_colliding = False
     
     def update(self, dt):
+
         keys = pygame.key.get_pressed()
+        self.bullet_timer -= dt
+        self.invincability_timer -= dt
 
         if keys[pygame.K_a]:
             self.rotate(-dt)
@@ -26,7 +32,9 @@ class Player(CircleShape):
             self.move(-dt)
     
     def draw(self, screen):
-        pygame.draw.polygon(screen, neon_blue, self.triangle(), 2)
+         # Choose color based on collision state
+        color = white if self.is_colliding else neon_blue  # White if colliding, neon_blue otherwise
+        pygame.draw.polygon(screen, color, self.triangle(), 0)
 
     def rotate(self,  dt):
         self.rotation +=  PLAYER_TURN_SPEED * dt
