@@ -1,5 +1,6 @@
 import pygame
 import constants
+import images
 from player import *
 from circleshape import *
 from asteroid import *
@@ -15,7 +16,6 @@ def main():
     clock = pygame.time.Clock()
     ui = GameUI()
 
-    global KILL_COUNT
 
     #groups
     updatable = pygame.sprite.Group()
@@ -70,14 +70,15 @@ def main():
 
             for shot in shots:
                 if asteroid.collides_with(shot):
-                    asteroid.take_damage()  # Handle damage and flashing
+                    asteroid.take_damage(dt)  # Handle damage and flashing
                     shot.kill()
                     if asteroid.health == 0:
                         asteroid.split(asteroids)
                         print(f"KILL_COUNT in main after split: {constants.KILL_COUNT}")  # Add this line
                 
+        #draw background
+        screen.blit(images.background, (0, 0))
 
-        screen.fill(black) 
 
         #draw the sprites
         for obj in drawable:
